@@ -13,9 +13,9 @@ Segundo, activamos el entorno virtual:
 Tercero, instalar la libreria BeautifulSoup:
 ### `pip install beautifulsoup4`
 
-Tercero, instalar Flask
+Cuarto, instalar Flask
 ### `pip install Flask`
 
-Tercero, instalar requests
+Quinto, instalar requests
 ### `pip3 install requests`
 
