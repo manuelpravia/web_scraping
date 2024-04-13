@@ -7,7 +7,7 @@ class ProductService:
     def obtenerProducto (self):
         url = 'https://listado.mercadolibre.com.pe/iphone-15'
         response = requests.get(url)
-
+        identificador = 1
 
         soup = BeautifulSoup(response.content, 'html.parser')
 
@@ -26,8 +26,9 @@ class ProductService:
                 original_price = original_price_element.text if original_price_element else 'Precio no disponible'
 
                 #Extraemos precio actual
-                current_price_element = product_container.find('span', class_='andes-money-amount__fraction')
-                current_price = current_price_element.text if current_price_element else 'Precio no disponible'
+                elemento_div = product_container.find('div', class_='ui-search-price__second-line')
+                current_price_element = elemento_div.find('span', class_='andes-money-amount__fraction')
+                current_price = current_price_element.text.replace('.','') if current_price_element else 'Precio no disponible'
 
                 # Extrae la disponibilidad en colores
                 color_availability_element = product_container.find('span', class_='ui-search-item__variations-text')
@@ -39,7 +40,6 @@ class ProductService:
 
                 # Extrae la imagen del producto
                 image_url = product_container.find('img', class_='ui-search-result-image__element')['src']
-                print(image_url)
 
                 #cantidad de opiniones
                 reviews_count_tag = product_container.find('span', class_='ui-search-reviews__amount')
@@ -47,15 +47,17 @@ class ProductService:
                 reviews_count = re.search(r'\d+', reviews_count_text).group() if reviews_count_text else '0'
 
                 producto = {
+                    'id': identificador,
                     'name': product_name,
                     'original_price': original_price,
-                    'current_price': current_price,
+                    'current_price': float(current_price),
                     'availability-color': color_availability,
                     'img': image_url,
                     'rating': rating,
                     'review': reviews_count,
 
-                }  
+                } 
+                identificador = identificador + 1 
                 productList.append(producto)    
 
         return  productList
