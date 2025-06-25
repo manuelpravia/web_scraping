@@ -1,10 +1,14 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, render_template
 from src.service.ProductService import ProductService
 
 app = Flask(__name__)
 
 productService = ProductService()
 
+@app.route('/')
+def home():
+    productos = productService.obtenerProducto()
+    return render_template('index.html',productos=productos)
 
 @app.route('/product', methods=['GET'])
 def get_all_products():

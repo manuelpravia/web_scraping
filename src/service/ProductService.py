@@ -19,30 +19,29 @@ class ProductService:
 
             if product_container:
                 # Extrae el nombre del producto
-                product_name = product_container.find('h3', class_='ui-search-item__title').text
-
+                product_name = product_container.find('h3', class_='poly-component__title-wrapper').text
                 # Extrae el precio original
                 original_price_element = product_container.find('s', class_='andes-money-amount')
                 original_price = original_price_element.text if original_price_element else 'Precio no disponible'
 
                 #Extraemos precio actual
-                elemento_div = product_container.find('div', class_='ui-search-price__second-line')
-                current_price_element = elemento_div.find('span', class_='andes-money-amount__fraction')
+                elemento_div = product_container.find('div', class_='poly-price__current')
+                current_price_element = elemento_div.find('span', class_='poly-price__installments')
                 current_price = current_price_element.text.replace('.','') if current_price_element else 'Precio no disponible'
 
                 # Extrae la disponibilidad en colores
-                color_availability_element = product_container.find('span', class_='ui-search-item__variations-text')
+                color_availability_element = product_container.find('span', class_='poly-component__variations-text')
                 color_availability = color_availability_element.text if color_availability_element else 'No has colores disponibles'
 
                 # Extrae la calificación 
-                rating_element = product_container.find('span', class_='ui-search-reviews__rating-number')
+                rating_element = product_container.find('span', class_='poly-reviews__rating')
                 rating = rating_element.text if rating_element else '0'
 
                 # Extrae la imagen del producto
-                image_url = product_container.find('img', class_='ui-search-result-image__element')['src']
+                image_url = product_container.find('img', class_='poly-component__picture')['src']
 
                 #cantidad de opiniones
-                reviews_count_tag = product_container.find('span', class_='ui-search-reviews__amount')
+                reviews_count_tag = product_container.find('span', class_='poly-reviews__total')
                 reviews_count_text = reviews_count_tag.text if reviews_count_tag else '0'
                 reviews_count = re.search(r'\d+', reviews_count_text).group() if reviews_count_text else '0'
 
@@ -50,8 +49,8 @@ class ProductService:
                     'id': identificador,
                     'name': product_name,
                     'original_price': original_price,
-                    'current_price': float(current_price),
-                    'availability-color': color_availability,
+                    'current_price': current_price,
+                    'availability_color': color_availability,
                     'img': image_url,
                     'rating': rating,
                     'review': reviews_count,
