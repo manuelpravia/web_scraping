@@ -5,10 +5,31 @@ app = Flask(__name__)
 
 productService = ProductService()
 
-@app.route('/')
+@app.route('/home')
 def home():
+    return render_template('home.html')
+
+@app.route('/')
+def layout():
+    return render_template('index.html')
+
+
+@app.route('/productos', methods=['GET'])
+def get_all_productos():
     productos = productService.obtenerProducto()
-    return render_template('index.html',productos=productos)
+    return render_template('productos.html', productos=productos)
+
+@app.route('/ventas', methods=['GET'])
+def get_all_ventas():
+    return render_template('ventas.html')
+
+@app.route('/sidebar', methods=['GET'])
+def sidebar():
+    return render_template('sidebar.html')
+
+
+
+#========== API BACKEND ===========
 
 @app.route('/product', methods=['GET'])
 def get_all_products():
