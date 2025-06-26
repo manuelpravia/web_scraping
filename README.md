@@ -1,27 +1,31 @@
 # WEB SCRAPING con Python, Flask Y BeautifulSoup
 
-WEB SACRPING con Python 3.13. En este proyecto usaremos la libreria BeautifulSoup para extraer datos de los ptoductos de la pagina demercado libre para luego exponerla en una api con Flask y tambien renderizar la lsita de productos en una pagina html.
+WEB SACRPING con Python 3.13. En este proyecto usaremos la libreria BeautifulSoup para extraer datos de los productos de la pagina de mercado libre para luego exponerla en una api con Flask y tambien renderizar la lista de productos en un sitio web.
 
 <hr/>
 
-Primero, crear un entorno virtual:
+Creamos un entorno virtual:
 ```bash 
 python -m venv venv
 ```
 
-Segundo, activamos el entorno virtual:
+Activamos el entorno virtual:
 ```bash
+#windows
+venv\Scripts\activate
+#linux
 source venv/bin/activate
 ```
 
-Instalamos las librerias
+Instalamos librerias
 ```bash
 pip install --no-cache-dir -r requiremets.txt
 ```
 
 
-ejecutamos la aplicacion
+Ejecutamos la aplicacion
 ```bash
 python main.py
 ```
+
 
